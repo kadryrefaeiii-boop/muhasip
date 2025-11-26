@@ -1,0 +1,140 @@
+2025-11-26 13:55:05,523 - __main__ - INFO - Starting Professional Accounting ERP System...
+2025-11-26 13:55:05,701 - managers.database_manager - INFO - Database connection initialized successfully
+2025-11-26 13:55:05,701 - managers.database_manager - INFO - Database Manager initialized with path: database/accounting_erp.db
+2025-11-26 13:55:05,701 - __main__ - INFO - Database initialized successfully
+2025-11-26 13:55:05,702 - managers.database_manager - ERROR - Query execution failed: no such table: settings
+2025-11-26 13:55:05,702 - managers.database_manager - ERROR - Query: SELECT key, value, data_type FROM settings
+2025-11-26 13:55:05,702 - managers.database_manager - ERROR - Params: None
+2025-11-26 13:55:05,702 - managers.settings_manager - ERROR - Failed to load settings cache: Query execution failed: no such table: settings
+2025-11-26 13:55:05,704 - managers.settings_manager - INFO - Settings Manager initialized
+2025-11-26 13:55:05,706 - managers.language_manager - INFO - Language 'ar' loaded successfully
+2025-11-26 13:55:05,707 - managers.language_manager - INFO - Language Manager initialized with language: ar
+2025-11-26 13:55:05,707 - managers.session_manager - INFO - Session Manager initialized
+2025-11-26 13:55:05,707 - __main__ - INFO - Managers initialized successfully
+2025-11-26 13:55:05,708 - managers.database_manager - ERROR - Query execution failed: no such table: settings
+2025-11-26 13:55:05,709 - managers.database_manager - ERROR - Query: SELECT value, data_type FROM settings WHERE key = ?
+2025-11-26 13:55:05,709 - managers.database_manager - ERROR - Params: ('theme',)
+2025-11-26 13:55:05,710 - managers.settings_manager - ERROR - Failed to get setting 'theme': Query execution failed: no such table: settings
+2025-11-26 13:55:05,710 - managers.database_manager - ERROR - Query execution failed: no such table: settings
+2025-11-26 13:55:05,710 - managers.database_manager - ERROR - Query: SELECT value, data_type FROM settings WHERE key = ?
+2025-11-26 13:55:05,710 - managers.database_manager - ERROR - Params: ('color_theme',)
+2025-11-26 13:55:05,710 - managers.settings_manager - ERROR - Failed to get setting 'color_theme': Query execution failed: no such table: settings
+2025-11-26 13:55:05,710 - __main__ - INFO - Theme set to light/blue
+2025-11-26 13:55:05,712 - managers.database_manager - ERROR - Query execution failed: no such table: settings
+2025-11-26 13:55:05,712 - managers.database_manager - ERROR - Query: SELECT value, data_type FROM settings WHERE key = ?
+2025-11-26 13:55:05,712 - managers.database_manager - ERROR - Params: ('language',)
+2025-11-26 13:55:05,712 - managers.settings_manager - ERROR - Failed to get setting 'language': Query execution failed: no such table: settings
+2025-11-26 13:55:05,712 - managers.language_manager - INFO - Language set to: ar
+2025-11-26 13:55:05,712 - __main__ - INFO - Language set to ar
+2025-11-26 13:55:05,712 - __main__ - INFO - Database empty - running initial setup
+2025-11-26 13:55:05,720 - database.schema - INFO - Starting database schema creation...
+2025-11-26 13:55:05,720 - database.schema - INFO - Creating table: users
+2025-11-26 13:55:05,726 - database.schema - INFO - Table users created successfully
+2025-11-26 13:55:05,726 - database.schema - INFO - Creating table: accounts
+2025-11-26 13:55:05,726 - database.schema - INFO - Table accounts created successfully
+2025-11-26 13:55:05,726 - database.schema - INFO - Creating table: fiscal_years
+2025-11-26 13:55:05,728 - database.schema - INFO - Table fiscal_years created successfully
+2025-11-26 13:55:05,728 - database.schema - INFO - Creating table: journal_entries
+2025-11-26 13:55:05,728 - database.schema - INFO - Table journal_entries created successfully
+2025-11-26 13:55:05,728 - database.schema - INFO - Creating table: journal_lines
+2025-11-26 13:55:05,728 - managers.database_manager - ERROR - Query execution failed: near "XOR": syntax error
+2025-11-26 13:55:05,729 - managers.database_manager - ERROR - Query: 
+        CREATE TABLE journal_lines (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            entry_id INTEGER NOT NULL,
+            account_id INTEGER NOT NULL,
+            line_number INTEGER NOT NULL,
+            description TEXT,
+            debit DECIMAL(15,2) DEFAULT 0,
+            credit DECIMAL(15,2) DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            created_by INTEGER NULL,
+            updated_by INTEGER NULL,
+            FOREIGN KEY (entry_id) REFERENCES journal_entries(id) ON DELETE CASCADE,
+            FOREIGN KEY (account_id) REFERENCES accounts(id),
+            FOREIGN KEY (created_by) REFERENCES users(id),
+            FOREIGN KEY (updated_by) REFERENCES users(id),
+            CHECK (debit >= 0 AND credit >= 0),
+            CHECK (debit > 0 XOR credit > 0),
+            UNIQUE(entry_id, line_number)
+        )
+    
+2025-11-26 13:55:05,729 - managers.database_manager - ERROR - Params: None
+2025-11-26 13:55:05,729 - database.schema - ERROR - Database schema creation failed: Query execution failed: near "XOR": syntax error
+2025-11-26 13:55:05,730 - database.initial_data - INFO - Starting initial data insertion...
+2025-11-26 13:55:05,731 - database.initial_data - INFO - Default admin user created with ID: 1
+2025-11-26 13:55:05,731 - database.initial_data - INFO - Fiscal year 'السنة المالية 2025' created with ID: 1
+2025-11-26 13:55:05,732 - database.initial_data - INFO - Fiscal year 'السنة المالية 2024' created with ID: 2
+2025-11-26 13:55:05,732 - database.initial_data - INFO - Root account 'الأصول' created with ID: 1
+2025-11-26 13:55:05,733 - database.initial_data - INFO - Root account 'الخصوم' created with ID: 2
+2025-11-26 13:55:05,733 - database.initial_data - INFO - Root account 'المصروفات' created with ID: 3
+2025-11-26 13:55:05,733 - database.initial_data - INFO - Root account 'الإيرادات' created with ID: 4
+2025-11-26 13:55:05,733 - database.initial_data - INFO - Root account 'حقوق الملكية' created with ID: 5
+2025-11-26 13:55:05,734 - database.initial_data - INFO - Asset sub-account 'الأصول المتداولة' created with ID: 6
+2025-11-26 13:55:05,734 - database.initial_data - INFO - Asset sub-account 'الأصول غير المتداولة' created with ID: 7
+2025-11-26 13:55:05,734 - database.initial_data - INFO - Current assets account 'النقدية والبنوك' created with ID: 8
+2025-11-26 13:55:05,734 - database.initial_data - INFO - Current assets account 'الذمم المدينة' created with ID: 9
+2025-11-26 13:55:05,735 - database.initial_data - INFO - Current assets account 'المخزون' created with ID: 10
+2025-11-26 13:55:05,735 - database.initial_data - INFO - Cash/Banks account 'الخزينة' created with ID: 11
+2025-11-26 13:55:05,736 - database.initial_data - INFO - Cash/Banks account 'البنوك' created with ID: 12
+2025-11-26 13:55:05,736 - database.initial_data - INFO - Bank account 'البنك الأهلي' created with ID: 13
+2025-11-26 13:55:05,736 - database.initial_data - INFO - Bank account 'بنك الراجحي' created with ID: 14
+2025-11-26 13:55:05,736 - database.initial_data - INFO - Bank account 'البنك السعودي' created with ID: 15
+2025-11-26 13:55:05,738 - database.initial_data - INFO - Liability sub-account 'الخصوم المتداولة' created with ID: 16
+2025-11-26 13:55:05,738 - database.initial_data - INFO - Liability sub-account 'الخصوم غير المتداولة' created with ID: 17
+2025-11-26 13:55:05,738 - database.initial_data - INFO - Expense sub-account 'المصروفات التشغيلية' created with ID: 18
+2025-11-26 13:55:05,738 - database.initial_data - INFO - Expense sub-account 'مصروفات البيع والتسويق' created with ID: 19
+2025-11-26 13:55:05,739 - database.initial_data - INFO - Expense sub-account 'المصروفات الإدارية والعامة' created with ID: 20
+2025-11-26 13:55:05,739 - database.initial_data - INFO - Revenue sub-account 'إيرادات المبيعات' created with ID: 21
+2025-11-26 13:55:05,739 - database.initial_data - INFO - Revenue sub-account 'إيرادات الخدمات' created with ID: 22
+2025-11-26 13:55:05,739 - database.initial_data - INFO - Revenue sub-account 'إيرادات أخرى' created with ID: 23
+2025-11-26 13:55:05,739 - database.initial_data - INFO - Chart of Accounts initial structure created successfully
+2025-11-26 13:55:05,739 - managers.database_manager - ERROR - Query execution failed: no such table: reports
+2025-11-26 13:55:05,739 - managers.database_manager - ERROR - Query: SELECT id FROM reports WHERE name = ?
+2025-11-26 13:55:05,739 - managers.database_manager - ERROR - Params: ('دفتر الأستاذ العام',)
+2025-11-26 13:55:05,739 - database.initial_data - ERROR - Failed to insert default reports: Query execution failed: no such table: reports
+2025-11-26 13:55:05,740 - database.initial_data - ERROR - Initial data insertion failed: Query execution failed: no such table: reports
+2025-11-26 13:55:05,740 - __main__ - INFO - Database setup completed
+2025-11-26 13:55:05,740 - __main__ - INFO - Application initialized successfully
+2025-11-26 13:55:07,988 - managers.database_manager - ERROR - Query execution failed: no such table: settings
+2025-11-26 13:55:07,988 - managers.database_manager - ERROR - Query: SELECT value, data_type FROM settings WHERE key = ?
+2025-11-26 13:55:07,989 - managers.database_manager - ERROR - Params: ('remembered_username',)
+2025-11-26 13:55:07,989 - managers.settings_manager - ERROR - Failed to get setting 'remembered_username': Query execution failed: no such table: settings
+2025-11-26 13:55:07,989 - __main__ - ERROR - Failed to show login screen: 'LoginWindow' object has no attribute 'update_idletasks'
+2025-11-26 13:55:18,753 - managers.database_manager - INFO - Database connection closed
+2025-11-26 14:02:38,068 - __main__ - INFO - Starting Professional Accounting ERP System...
+2025-11-26 14:02:38,141 - managers.database_manager - INFO - Database connection initialized successfully
+2025-11-26 14:02:38,141 - managers.database_manager - INFO - Database Manager initialized with path: database/accounting_erp.db
+2025-11-26 14:02:38,141 - __main__ - INFO - Database initialized successfully
+2025-11-26 14:02:38,141 - managers.database_manager - ERROR - Query execution failed: no such table: settings
+2025-11-26 14:02:38,141 - managers.database_manager - ERROR - Query: SELECT key, value, data_type FROM settings
+2025-11-26 14:02:38,141 - managers.database_manager - ERROR - Params: None
+2025-11-26 14:02:38,141 - managers.settings_manager - ERROR - Failed to load settings cache: Query execution failed: no such table: settings
+2025-11-26 14:02:38,141 - managers.settings_manager - INFO - Settings Manager initialized
+2025-11-26 14:02:38,148 - managers.language_manager - INFO - Language 'ar' loaded successfully
+2025-11-26 14:02:38,148 - managers.language_manager - INFO - Language Manager initialized with language: ar
+2025-11-26 14:02:38,148 - managers.session_manager - INFO - Session Manager initialized
+2025-11-26 14:02:38,148 - __main__ - INFO - Managers initialized successfully
+2025-11-26 14:02:38,148 - managers.database_manager - ERROR - Query execution failed: no such table: settings
+2025-11-26 14:02:38,148 - managers.database_manager - ERROR - Query: SELECT value, data_type FROM settings WHERE key = ?
+2025-11-26 14:02:38,148 - managers.database_manager - ERROR - Params: ('theme',)
+2025-11-26 14:02:38,148 - managers.settings_manager - ERROR - Failed to get setting 'theme': Query execution failed: no such table: settings
+2025-11-26 14:02:38,148 - managers.database_manager - ERROR - Query execution failed: no such table: settings
+2025-11-26 14:02:38,152 - managers.database_manager - ERROR - Query: SELECT value, data_type FROM settings WHERE key = ?
+2025-11-26 14:02:38,152 - managers.database_manager - ERROR - Params: ('color_theme',)
+2025-11-26 14:02:38,152 - managers.settings_manager - ERROR - Failed to get setting 'color_theme': Query execution failed: no such table: settings
+2025-11-26 14:02:38,152 - __main__ - INFO - Theme set to light/blue
+2025-11-26 14:02:38,152 - managers.database_manager - ERROR - Query execution failed: no such table: settings
+2025-11-26 14:02:38,152 - managers.database_manager - ERROR - Query: SELECT value, data_type FROM settings WHERE key = ?
+2025-11-26 14:02:38,152 - managers.database_manager - ERROR - Params: ('language',)
+2025-11-26 14:02:38,152 - managers.settings_manager - ERROR - Failed to get setting 'language': Query execution failed: no such table: settings
+2025-11-26 14:02:38,152 - managers.language_manager - INFO - Language set to: ar
+2025-11-26 14:02:38,152 - __main__ - INFO - Language set to ar
+2025-11-26 14:02:38,152 - __main__ - INFO - Application initialized successfully
+2025-11-26 14:02:40,285 - managers.database_manager - ERROR - Query execution failed: no such table: settings
+2025-11-26 14:02:40,285 - managers.database_manager - ERROR - Query: SELECT value, data_type FROM settings WHERE key = ?
+2025-11-26 14:02:40,285 - managers.database_manager - ERROR - Params: ('remembered_username',)
+2025-11-26 14:02:40,285 - managers.settings_manager - ERROR - Failed to get setting 'remembered_username': Query execution failed: no such table: settings
+2025-11-26 14:02:40,285 - __main__ - ERROR - Failed to show login screen: 'LoginWindow' object has no attribute 'update_idletasks'
+2025-11-26 14:02:46,153 - managers.database_manager - INFO - Database connection closed

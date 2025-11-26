@@ -1,0 +1,8 @@
+Professional Accounting ERP - License Agreement
+===============================================
+
+This is a license agreement for the Professional Accounting ERP software.
+
+Copyright (c) 2024 Accounting ERP Solutions
+
+This software is provided "as-is" without any warranty.
